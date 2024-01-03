@@ -2,11 +2,19 @@ package com.devsuperior.desafio03.dto.request;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
+
 public class RequestClientDto {
     private Long id;
+
+    @NotBlank(message = "Campo requerido")
     private String name;
+    @Size(min = 11, max = 11, message = "O campo CPF contem 11 digitos")
     private String cpf;
     private Double income;
+    @PastOrPresent(message = "Não pode ser conter data futuras")
     private LocalDate birthDate;
     private Integer children;
 

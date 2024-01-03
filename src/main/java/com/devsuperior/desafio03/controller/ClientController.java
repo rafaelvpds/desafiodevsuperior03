@@ -23,6 +23,8 @@ import com.devsuperior.desafio03.dto.request.RequestClientDto;
 import com.devsuperior.desafio03.dto.response.ResponseClientDto;
 import com.devsuperior.desafio03.service.ClientService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/clients")
 public class ClientController {
@@ -43,7 +45,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseClientDto> insertClient(@RequestBody RequestClientDto dto) {
+    public ResponseEntity<ResponseClientDto> insertClient(@Valid @RequestBody RequestClientDto dto) {
 
         ResponseClientDto clientDto = new ResponseClientDto(dto);
         clientDto = service.insert(dto);
@@ -55,7 +57,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseClientDto> update(@PathVariable Long id, @RequestBody RequestClientDto dto) {
+    public ResponseEntity<ResponseClientDto> update(@PathVariable Long id, @Valid @RequestBody RequestClientDto dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
