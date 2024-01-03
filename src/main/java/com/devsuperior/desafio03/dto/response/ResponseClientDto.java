@@ -34,6 +34,7 @@ public class ResponseClientDto {
     }
 
     public ResponseClientDto(RequestClientDto request) {
+        id = request.getId();
         name = request.getName();
         cpf = request.getCpf();
         income = request.getIncome();

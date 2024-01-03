@@ -1,7 +1,5 @@
 package com.devsuperior.desafio03.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +12,7 @@ import com.devsuperior.desafio03.dto.request.RequestClientDto;
 import com.devsuperior.desafio03.dto.response.ResponseClientDto;
 import com.devsuperior.desafio03.entities.Client;
 import com.devsuperior.desafio03.repositorie.ClientRepository;
+import com.devsuperior.desafio03.service.exceptions.ResourceNotFoundExceptions;
 
 @Service
 public class ClientService {
@@ -24,9 +23,9 @@ public class ClientService {
     @Transactional(readOnly = true)
     public ResponseClientDto findById(Long id) {
 
-        Optional<Client> client = repository.findById(id);
-        Client opClient = client.get();
-        return new ResponseClientDto(opClient);
+        Client client = repository.findById(id).orElseThrow(() -> new ResourceNotFoundExceptions("Id not found"));
+
+        return new ResponseClientDto(client);
     }
 
     @Transactional(readOnly = true)
@@ -50,7 +49,7 @@ public class ClientService {
 
     @Transactional
     public ResponseClientDto update(Long id, RequestClientDto dto) {
-        Client entityClient = repository.getReferenceById(id);
+        Client entityClient = repository.findById(id).orElseThrow(() -> new ResourceNotFoundExceptions("id not found"));
         copyDtoToEntity(dto, entityClient);
 
         entityClient = repository.save(entityClient);
@@ -60,7 +59,11 @@ public class ClientService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundExceptions("id not found");
+        }
     }
 
     private void copyDtoToEntity(RequestClientDto dto, Client entity) {
