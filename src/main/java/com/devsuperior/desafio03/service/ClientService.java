@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.desafio03.dto.request.RequestClientDto;
 import com.devsuperior.desafio03.dto.response.ResponseClientDto;
 import com.devsuperior.desafio03.entities.Client;
 import com.devsuperior.desafio03.repositorie.ClientRepository;
@@ -34,6 +35,23 @@ public class ClientService {
         Page<Client> clientListPage = repository.findAll(pageable);
 
         return clientListPage.map(x -> new ResponseClientDto(x));
+    }
+
+    public ResponseClientDto insert(RequestClientDto dto) {
+        Client entity = new Client();
+        copyDtoToEntity(dto, entity);
+
+        entity = repository.save(entity);
+
+        return new ResponseClientDto(entity);
+    }
+
+    private void copyDtoToEntity(RequestClientDto dto, Client entity) {
+        entity.setName(dto.getName());
+        entity.setCpf(dto.getCpf());
+        entity.setIncome(dto.getIncome());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setChildren(dto.getChildren());
     }
 
 }

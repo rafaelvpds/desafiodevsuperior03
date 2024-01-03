@@ -1,6 +1,6 @@
 package com.devsuperior.desafio03.dto.response;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.devsuperior.desafio03.dto.request.RequestClientDto;
 import com.devsuperior.desafio03.entities.Client;
@@ -10,13 +10,13 @@ public class ResponseClientDto {
     private String name;
     private String cpf;
     private Double income;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private Integer children;
 
     public ResponseClientDto() {
     }
 
-    public ResponseClientDto(String name, String cpf, Double income, LocalDateTime birthDate, Integer children) {
+    public ResponseClientDto(String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.name = name;
         this.cpf = cpf;
         this.income = income;
@@ -57,7 +57,7 @@ public class ResponseClientDto {
         return income;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 

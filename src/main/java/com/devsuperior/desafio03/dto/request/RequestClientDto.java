@@ -1,15 +1,15 @@
 package com.devsuperior.desafio03.dto.request;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class RequestClientDto {
     private String name;
     private String cpf;
     private Double income;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private Integer children;
 
-    public RequestClientDto(String name, String cpf, Double income, LocalDateTime birthDate, Integer children) {
+    public RequestClientDto(String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.name = name;
         this.cpf = cpf;
         this.income = income;
@@ -29,7 +29,7 @@ public class RequestClientDto {
         return income;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
